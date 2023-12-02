@@ -56,6 +56,42 @@ In this exercise the task is to determine if given polynomials are reducible, ir
 \end{enumerate} 
 
 \subsection{Laboratory Exercise 1}
+Now a polynomial is deemed reducible or not in Maple as follows:
+\begin{enumerate}
+    \item $p(x) = x^23 + x^5 + 1 \text{ over } \mathbb F_2$ \\
+    \begin{verbatim}
+        Irreduc(x^23 + x^5 + 1) mod 2
+    \end{verbatim}
+    This returns: \textbf{True} $\rightarrow$ Irreducible
+    To check if it is primitive:
+    \begin{verbatim}
+        Primitive(x^23 + x^5 + 1) mod 2
+    \end{verbatim}
+    This returns: \textbf{True} $\rightarrow$ Primitive
+    \item $p(x) = x^23 + x^6 + 1 \text{ over } \mathbb F_2$ \\
+        \begin{verbatim}
+        Irreduc(x^23 + x^6 + 1) mod 2
+    \end{verbatim}
+    This returns: \textbf{False} $\rightarrow$ Reducible
+    \item $p(x) = x^18 + x^3 + 1 \text{ over } \mathbb F_2$ \\
+        \begin{verbatim}
+        Irreduc(x^18 + x^3 + 1) mod 2
+    \end{verbatim}
+    This returns: \textbf{True} $\rightarrow$ Irreducible
+    To check if it is primitive:
+    \begin{verbatim}
+        Primitive(x^18 + x^3 + 1) mod 2
+    \end{verbatim}
+    This returns: \textbf{False}
+    \item $p(x) = x^8 + x^6 + 1 \text{ over } \mathbb F_7$ \\
+        \begin{verbatim}
+        Irreduc(x^8 + x^6 + 1) mod 7
+    \end{verbatim}
+    This returns: \textbf{False} $\rightarrow$ Reducible
+    \item $p(x) = x^6 + \alpha^5 x + 1 \text{ over } \mathbb F_{2^4}$ \\
+    \todo[inline]{Dont know how}
+\end{enumerate}
+
 \subsection{Home Exercise 2}
 In this exercise the order of the following elements must be determined, this is the smallest $t$ such that $a^t = 1$. In this case from the $\mathbb F_{2^4}$ multiplicative table it is known that $\alpha^15 = 1$ which means every element below should be taken to this number.
 \begin{enumerate}
@@ -66,6 +102,41 @@ In this exercise the order of the following elements must be determined, this is
     
 \end{enumerate}
 \subsection{Laboratory Exercise 2}
+In this section the same task as before is done in Maple. The finite field is defined as:
+\begin{verbatim}
+    G218 := GF(2, 18, alpha^18 + alpha^3 + 1)
+\end{verbatim}
+And $\alpha$ as:
+\begin{verbatim}
+    a := G218:-ConvertIn(alpha)
+\end{verbatim}
+After this, the order of each desired element is calculated below.
+\begin{enumerate}
+    \item $\alpha$ \\
+    \begin{verbatim}
+        a := G218(alpha)
+        G218:-order(a)
+    \end{verbatim}
+    Which returns: \textbf{189}
+    \item $\alpha^2$ \\
+    \begin{verbatim}
+        b := G218:-`^`(a, 2)
+        G218:-order(b)
+    \end{verbatim}
+    Which returns: \textbf{189}
+    \item $\alpha^3$ \\
+    \begin{verbatim}
+        c := G218:-`^`(a, 3)
+        G218:-order(c)
+    \end{verbatim}
+    Which returns: \textbf{63}
+    \item $\alpha^3$ \\
+    \begin{verbatim}
+        d := G218:-`+`(c, a)
+        G218:-order(d)
+    \end{verbatim}
+    Which returns: \textbf{262143}
+\end{enumerate}
 \subsection{Home Exercise 3}
 \subsection{Laboratory Exercise 3}
 \subsection{Home Exercise 4}
