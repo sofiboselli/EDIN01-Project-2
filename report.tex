@@ -217,6 +217,15 @@ A primitive polynomial of degree 4 over $\mathbb{F}_5$ is : $x^4+3x^3+3x^2+2$
 \section{De Bruijn Sequences}
 
 \subsection{Home Exercise 5}
+
+We used the polynomial $x^4 + x + 1$ in an LFSR and designed a special circuit to overwrite the sequence $0001 \longrightarrow 1000$ to $0001 \longrightarrow 0000 \longrightarrow 1000$ to get an FSR that has a cycle of length $2^4=16$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{NonLinearFSR.jpg}
+    \caption{Non linear FSR with cycle length 16}
+\end{figure}
+
 \subsection{Laboratory Exercise 5}
 
 Using the following code written in python, the desired sequence is created. The code constructs two de Bruijn sequences with cycle size $2^4$ and $5^4$ and goes through all the $10000$ different codes typing only $10003$ digits.
