@@ -46,11 +46,11 @@ In this exercise the task is to determine if given polynomials are reducible, ir
 \begin{enumerate}
     \item $p(x) = x^4 + x^2 + 1 \text{ over } \mathbb F_2$ \\
     As $\mathbb F_2$ only contains two elements (0,1) the amount of possible polynomials which can me multiplied to obtain the above expression is small. In this case, to obtain a polynomial of degree 4 the multiplication must be done with polynomials of degree 2 and 2 or 1 and 3. Starting with 2 and 2, there are only 4 polynomials in $\mathbb F_2$ with this constraint, and only 2 with an independent term. Calculating long division with these two yields that a reminder 0 is obtained with $x^2 + x + 1$ and:
-    $$(x^2+x+1)(x^2-x+1) = x^4 + x^2 + 1$$
+    $$(x^2+x+1)(x^2-x+1) = (x^2+x+1)^2 = x^4 + x^2 + 1$$
     which means the polynomial $p(x)$ is reducible.
     \item $p(x) = x^3 + x + 1 \text{ over } \mathbb F_3$ \\
     In this case $\mathbb F_3$ has three elements (0,1,2). Instead of trying every possible alternative, possible roots of $p(x)$ are checked. By doing this it can be seen that $p(0) = 1$ but $p(1) = 3 = 0$ which means that there exists a way to reduce $p(x)$ with $(x-1)$ which in $\mathbb F_3$ is $(x+2)$. Calculating the results with long division the following is obtained:
-    $$(x+2)(x^2-2x+2) = x^3 - 2x + 4 = x^3 + x + 1$$
+    $$(x+2)(x^2+x+2) = x^3 + 3x^2 + 4x + 4 = x^3 + x + 1$$
     \item  $p(x) = x^2 + \alpha^5 x + 1 \text{ over } \mathbb F_{2^4}$ \\
     The first step is to obtain the multiplication table for $\mathbb F_{2^4}$ in order to obtain every element in the group and its expression in terms of $\alpha$ (if constructed from a primitive). If $p(x)$ is irreducible it means that $p(x) = (x-\alpha^i)(x-\alpha^j) = x^2 + (\alpha^i + \alpha^j)x + \alpha^{i+j}$. This means that for $p(x)$ to be reducible $(\alpha^i + \alpha^j) = \alpha^5$ and  $\alpha^{i+j} = \alpha^{15}$. By trying the possible alternatives a result is found with $i = 9, j=6$ which means $p(x)$ is reducible.
 \end{enumerate} 
@@ -145,27 +145,33 @@ After this, the order of each desired element is calculated below.
 
 \begin{enumerate}
     \item $p(x)=x^4+x^2+1=(x^2+x+1)^2$ \newline
-    We have the following cycle set :\newline
-    \{ \{ 0 \}, \newline
-    \{ $x \longrightarrow x^2 \longrightarrow x^3 \longrightarrow x^2+1 \longrightarrow x^3+x \longrightarrow 1$ \}, \newline
-    \{ $x+1 \longrightarrow x^2+1 \longrightarrow x^3+x^2+x+1 \longrightarrow x^2 \longrightarrow x^3+x^2 \longrightarrow 1$ \}, \newline
-    \{ $x^3+x+1 \longrightarrow x^2 \longrightarrow x^2+x \longrightarrow x^2+1 \longrightarrow x^3+x^2+1 \longrightarrow 1$ \} \} \newline
-    Note that $x^3+1$, $x^2+x+1$ and $x^3+x^2+x$ are all sent to $0$.
+    % We have the following cycle set :\newline
+    % \{ \{ 0 \}, \newline
+    % \{ $x \longrightarrow x^2 \longrightarrow x^3 \longrightarrow x^2+1 \longrightarrow x^3+x \longrightarrow 1$ \}, \newline
+    % \{ $x+1 \longrightarrow x^2+1 \longrightarrow x^3+x^2+x+1 \longrightarrow x^2 \longrightarrow x^3+x^2 \longrightarrow 1$ \}, \newline
+    % \{ $x^3+x+1 \longrightarrow x^2 \longrightarrow x^2+x \longrightarrow x^2+1 \longrightarrow x^3+x^2+1 \longrightarrow 1$ \} \} \newline
+    % Note that $x^3+1$, $x^2+x+1$ and $x^3+x^2+x$ are all sent to $0$.
+    To obtain the cycle set the Theorem 4.4 from the course notes can be applied. In order to do this the period of $D^2+D+1$ is calculated, as this is irreducible and primitive in $\mathbb F_{2}$ the period is calculated as $T_1 = q^L - 1 = 2^2-1 = 3$. Then $T_2 = p^mT_1$ and as $2^0<2<2^1$ then $T_2 = 2T1 = 6$. Applying all of this to the formula the cycle set is finally:
+    $$1(1) \oplus 1(3) \oplus 2(6) $$
 
     \item $p(x)=x^3+x+1=(x+2)(x^2+x+2)$ \newline
-    We have the following cycle set :\newline
-    \{ \{ 0 \}, \newline
-    \{ $2 \longrightarrow 1$ \}, \newline
-    \{ $x^2+x \longrightarrow 1$ \}, \newline
-    \{ $2x^2 \longrightarrow 2x^2+2\longrightarrow 2x^2+x+2 \longrightarrow 1$ \}, \newline
-    \{ $x \longrightarrow x^2 \longrightarrow 2x+2 \longrightarrow 2x^2+2x \longrightarrow 2x^2+x+1 \longrightarrow x^2+2x+1 \longrightarrow 2x^2+2 \longrightarrow 1$ \}, \newline
-    \{ $x+1 \longrightarrow x^2+2x+1 \longrightarrow 2x \longrightarrow 2x^2+2x \longrightarrow x^2+1 \longrightarrow x^2 \longrightarrow x^2+2x+2 \longrightarrow 1$ \}, \newline
-    \{ $2x^2+2x+1 \longrightarrow x^2+x+2$ \}, \newline
-    \{ $x^2+2 \longrightarrow 2x+1 \longrightarrow x^2+2x \longrightarrow x^2+x+1 \longrightarrow 2x^2+1 \longrightarrow x+2 \longrightarrow 2x^2+x \longrightarrow 2x^2+2x+2$ \} \} \newline
-    Note that some cycles do not go through $1$.
+    % We have the following cycle set :\newline
+    % \{ \{ 0 \}, \newline
+    % \{ $2 \longrightarrow 1$ \}, \newline
+    % \{ $x^2+x \longrightarrow 1$ \}, \newline
+    % \{ $2x^2 \longrightarrow 2x^2+2\longrightarrow 2x^2+x+2 \longrightarrow 1$ \}, \newline
+    % \{ $x \longrightarrow x^2 \longrightarrow 2x+2 \longrightarrow 2x^2+2x \longrightarrow 2x^2+x+1 \longrightarrow x^2+2x+1 \longrightarrow 2x^2+2 \longrightarrow 1$ \}, \newline
+    % \{ $x+1 \longrightarrow x^2+2x+1 \longrightarrow 2x \longrightarrow 2x^2+2x \longrightarrow x^2+1 \longrightarrow x^2 \longrightarrow x^2+2x+2 \longrightarrow 1$ \}, \newline
+    % \{ $2x^2+2x+1 \longrightarrow x^2+x+2$ \}, \newline
+    % \{ $x^2+2 \longrightarrow 2x+1 \longrightarrow x^2+2x \longrightarrow x^2+x+1 \longrightarrow 2x^2+1 \longrightarrow x+2 \longrightarrow 2x^2+x \longrightarrow 2x^2+2x+2$ \} \} \newline
+    % Note that some cycles do not go through $1$.
+    In this case $p(x)$ is the product of two irreducible functions in $\mathbb F_{3}$ which means that Theorem 4.6 in the notes can be applied. In this case $S_1 = x+2$ and $S_2 = x^2+x+2$. In the case of $S_1$ the period is calculated by long division and the result is $T_1 = 1$. This means that the cycle set for $S_1$ is simply $2(1)$. In the case of $S_2$ the function is primitive so the period is again easily calculated as $T_1 = 3^2-1 = 8$. This means the cycle set for $S_2$ is $1(1) \oplus 1(8)$. 
+    Finally, the cycle set for $p(x)$ can be calculated as the defined multiplication of the cycle sets which results in:
+    $$2(1) \oplus 2(8)$$
 \end{enumerate}
 
 \subsection{Laboratory Exercise 3}
+Now the previous task needs to be applied in Maple. 
 
 \todo[inline]{Don't know how to}
 
