@@ -171,9 +171,40 @@ After this, the order of each desired element is calculated below.
 \end{enumerate}
 
 \subsection{Laboratory Exercise 3}
-Now the previous task needs to be applied in Maple. 
+Now the previous task needs to be applied in Maple. This can be done by applying every step: 
+\begin{enumerate}
+    \item $p(x) = x^{23} + x^5 + 1 \text{ over } \mathbb F_2$ \\
+    Firstly the possibility of reducing the function is checked with:
+    \begin{verbatim}
+        Irreduc(x^23 + x^5 + 1) mod 2
+    \end{verbatim}
+    This returns true. The next step is to calculate the period, the possibility of the function being a primitive is tested:
+    \begin{verbatim}
+        Primitive(x^23 + x^5 + 1) mod 2
+    \end{verbatim}
+    Which also return true, this means that the period is calculated as:
+    \begin{verbatim}
+        2^23 - 1
+    \end{verbatim}
+    Which results in 8388607. Finally it is concluded that the cycle set is
+    $$1(1) \oplus 1(8388607)$$
+    
+    \item $p(x) = x^{23} + x^6 + 1 \text{ over } \mathbb F_2$ \\
+    Checking if reducible:
+    \begin{verbatim}
+        Irreduc(x^23 + x^6 + 1) mod 2
+    \end{verbatim}
+    yields False. The factors are obtained as:
+    \begin{verbatim}
+        Factor(x^23 + x^6 + 1) mod 2
+    \end{verbatim}
+    This concludes that: $x^{23} + x^6 + 1 = (x^{16} + x^{15} + x^{13} + x^{12} + x^8 + x^6 + x^4 + x^3 + x^2 + x + 1)(x^4 + x^3 + 1)(x^3 + x + 1)$. \\
+    For $(x^4 + x^3 + 1)$ we can check that it is a primitive, the period is calculated as before and the cycle set is $1(1) \oplus 1(15)$. For $(x^3 + x + 1)$ is also primitive so the cycle set is simply $1(1) \oplus 1(7)$. 
+    Finally $(x^{16} + x^{15} + x^{13} + x^{12} + x^8 + x^6 + x^4 + x^3 + x^2 + x + 1)$ turns out to not be a primitive which means the above method cannot be used to calculate the period. 
+    
+\end{enumerate}
 
-\todo[inline]{Don't know how to}
+\todo[inline]{Don't know how to calculate period when not primitive}
 
 \subsection{Home Exercise 4}
 
@@ -218,12 +249,13 @@ A primitive polynomial of degree 4 over $\mathbb{F}_5$ is : $x^4+3x^3+3x^2+2$
 
 \subsection{Home Exercise 5}
 
-We used the polynomial $x^4 + x + 1$ in an LFSR and designed a special circuit to overwrite the sequence $0001 \longrightarrow 1000$ to $0001 \longrightarrow 0000 \longrightarrow 1000$ to get an FSR that has a cycle of length $2^4=16$.
+Using the polynomial $x^4 + x + 1$ in an LFSR and designing a special circuit to overwrite the sequence $0001 \longrightarrow 1000$ to $0001 \longrightarrow 0000 \longrightarrow 1000$ to get an FSR that has a cycle of length $2^4=16$ can be implemented in a device like the one in Figure \ref{fig:NLFSR}
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{NonLinearFSR.jpg}
     \caption{Non linear FSR with cycle length 16}
+    \label{fig:NLFSR}
 \end{figure}
 
 \subsection{Laboratory Exercise 5}
