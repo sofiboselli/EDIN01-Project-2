@@ -200,11 +200,37 @@ Now the previous task needs to be applied in Maple. This can be done by applying
     \end{verbatim}
     This concludes that: $x^{23} + x^6 + 1 = (x^{16} + x^{15} + x^{13} + x^{12} + x^8 + x^6 + x^4 + x^3 + x^2 + x + 1)(x^4 + x^3 + 1)(x^3 + x + 1)$. \\
     For $(x^4 + x^3 + 1)$ we can check that it is a primitive, the period is calculated as before and the cycle set is $1(1) \oplus 1(15)$. For $(x^3 + x + 1)$ is also primitive so the cycle set is simply $1(1) \oplus 1(7)$. 
-    Finally $(x^{16} + x^{15} + x^{13} + x^{12} + x^8 + x^6 + x^4 + x^3 + x^2 + x + 1)$ turns out to not be a primitive which means the above method cannot be used to calculate the period. 
+    Finally $(x^{16} + x^{15} + x^{13} + x^{12} + x^8 + x^6 + x^4 + x^3 + x^2 + x + 1)$ turns out to not be a primitive which means the above method cannot be used to calculate the period. The algorithm to obtain the period is coded in maple in the following manner:
+    \begin{verbatim}
+        fun1 := x^16 + x^15 + x^13 + x^12 + x^8 + x^6 + x^4 + x^3 + x^2 + x + 1
+        fun2 := 1
+        
+        num := 1;
+        while 1 <= (tcoeff(fun2) - num*tcoeff(fun1)) mod 2 do
+            num := num + 1;
+        end do;
+        fun2 := expand(fun2 - fun1*num*x^ldegree(fun2)) mod 2;
+
+        while expand(fun2/x^degree(fun2)) <> 1 do 
+            num := 1; 
+            while 1 <= (tcoeff(fun2) - num*tcoeff(fun1)) mod 2 do
+                num := num + 1; 
+            end do; 
+            fun2 := expand(fun2 - fun1*num*x^ldegree(fun2)) mod 2; end do;
+        T := degree(fun2);
+    \end{verbatim}
+    After this the period obtained is T=21845. Which means the cycle set for this last polynomial is $1(1) \oplus 1(21845)$.
+    Finally, to obtain the cycle set for the original equation the defined multiplication must be made, this is:
+    $$[1(1) \oplus 1(15)] \times [1(1) \oplus 1(7)] \times [1(1) \oplus 1(21845)]$$. 
+    Using the distributive law the following is calculated for every pair:
+    \begin{verbatim}
+        1*1*gcd(T2, T3)
+        lcm(T2, T3)
+    \end{verbatim}
+    The final result is:
+    $$1(1) \oplus 1(7) \oplus 1(15) \oplus 1(105) \oplus 1(21845) \oplus 1(152915) \oplus 5(65535) \oplus 5(458745)$$
     
 \end{enumerate}
-
-\todo[inline]{Don't know how to calculate period when not primitive}
 
 \subsection{Home Exercise 4}
 
@@ -242,8 +268,6 @@ test := F16:-isPrimitiveElement(alpha);
 \end{verbatim}
 
 A primitive polynomial of degree 4 over $\mathbb{F}_5$ is : $x^4+3x^3+3x^2+2$
-
-\todo[inline]{Don't know if picking a random polynomial is the smartest idea vs. constructing one somehow but it works}
 
 \section{De Bruijn Sequences}
 
@@ -312,7 +336,8 @@ def computeDigit(deBruijnOutput_2_4, deBruijnOutput_5_4) :
 def checkIfDebruijnSequence(digitsString) :
     tuplePresent = []
     for digitIndex in range(0,len(digitsString)-3) :
-        currentTuple = (digitsString[digitIndex],digitsString[digitIndex+1],digitsString[digitIndex+2],digitsString[digitIndex+3])
+        currentTuple = (digitsString[digitIndex],digitsString[digitIndex+1],...
+                                        ...digitsString[digitIndex+2],digitsString[digitIndex+3])
         tuplePresent.append(currentTuple)
     return len(set(tuplePresent))==10000
 
